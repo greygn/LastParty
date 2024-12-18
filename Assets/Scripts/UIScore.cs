@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIScore : MonoBehaviour
 {
-    private StringBuilder basicText = new StringBuilder("SCORE: ");
+    private StringBuilder basicText = new StringBuilder("score: ");
     private StringBuilder currentText = new StringBuilder();
     // Start is called before the first frame update
     void Start()

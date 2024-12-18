@@ -33,25 +33,24 @@ public class ArrowControl : MonoBehaviour
     void Update()
     {
         elapsedTime = manager.elapsedTime;
-        if (manager.isStarted)
+        
+        //timer += Time.deltaTime;
+        //rhytm = Mathf.FloorToInt(timer);
+        if (currentNote < notesCount && ArrowSpawner(arrows[currentNote]))
         {
-            //timer += Time.deltaTime;
-            //rhytm = Mathf.FloorToInt(timer);
-            if (currentNote < notesCount && ArrowSpawner(arrows[currentNote]))
-            {
-                currentNote++;
-                beatCounter.ResetTicks();
-            }
-            //lateRhytm = rhytm;
-            //readyToSpawn = true;
-            //timer += Time.deltaTime;
+            currentNote++;
+            beatCounter.ResetTicks();
         }
+        //lateRhytm = rhytm;
+        //readyToSpawn = true;
+        //timer += Time.deltaTime;
+        
     }
 
     bool ArrowSpawner(ArrowRecord arrow)
     {
         if (arrow.GetTicksFromLast() <= beatCounter.GetCurrentTick())
-            Debug.Log("AAAAAAAAAAA");
+            
         {
             switch (arrow.GetDirection())
             {
@@ -89,6 +88,7 @@ public class ArrowControl : MonoBehaviour
             //readyToSpawn = false;
 
         }
+        return false;
     }
 
     private void OpenFile()

@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     public static int score;
     [SerializeField] public Animator UIComboAnim;
     public GameObject gameOverUI;
+    public GameObject gameWinUI;
     public bool isGameOver;
+    public bool isWin;
 
 
     // Animator anim;
@@ -36,12 +38,14 @@ public class GameManager : MonoBehaviour
     {
         // gameObject.GetComponent<Text>().text = 
         //ps.Play();
+        isGameOver = false;
         gameOverUI.SetActive(false);
         beatCounter.SetBPM(120);
         combo = 0;
         maxHealth = 200;
         health = maxHealth;
-        AudioScript.AudioPlay();
+        theMusic.Play();
+        isWin = false;
         //watch = new Stopwatch();
         //StartTimer();
         //UIComboAnim = gameObject.GetComponent<Animator>();
@@ -64,6 +68,11 @@ public class GameManager : MonoBehaviour
         if (health <= 0 && !isGameOver)
         {
             gameOver();
+        }
+
+        if(!theMusic.isPlaying && !isGameOver && !isWin)
+        {
+            win();
         }
 
 
@@ -121,22 +130,37 @@ public class GameManager : MonoBehaviour
 
     public void gameOver()
     {
+        if (theMusic != null)
+        {
+            theMusic.Stop();
+        }
+
         gameOverUI.SetActive(true);
         isGameOver = true;
+        
     }
 
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     public void openMenu()
     {
+        theMusic.Stop();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void quit()
     {
+        theMusic.Stop();
         Application.Quit();
+    }
+
+    public void win()
+    {
+        isWin = true;
+        gameWinUI.SetActive(true);
     }
 }
