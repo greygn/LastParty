@@ -49,7 +49,7 @@ public class ArrowControl : MonoBehaviour
 
     bool ArrowSpawner(ArrowRecord arrow)
     {
-        if (arrow.GetTicksFromLast() <= beatCounter.GetCurrentTick())
+        if (arrow.GetTicksFromLast() <= beatCounter.GetCurrentTick() && !manager.isGameOver)
             
         {
             switch (arrow.GetDirection())

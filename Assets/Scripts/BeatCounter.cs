@@ -33,7 +33,7 @@ public class BeatCounter : MonoBehaviour
 
     private void UpdateTicksPerSecond()
     {
-        ticksPerSecond = 60f / (bpm * 2f);
+        ticksPerSecond = 60f / (bpm * 4f);
     }
 
     public float GetTicksPerSecond()

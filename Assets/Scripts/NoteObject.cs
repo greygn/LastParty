@@ -13,7 +13,7 @@ public class NoteObject : MonoBehaviour
     GameManager gameManager;
 
 
-    float deathTimer = 3.4f;
+    float deathTimer = 2.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,28 +33,28 @@ public class NoteObject : MonoBehaviour
                 Vector3 parentCoord = transform.parent.transform.position;
                 if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.15)
                 {
-                    GameManager.PerfectNoteAction(gameManager.UIComboAnim);
+                    GameManager.PerfectNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
                     Debug.Log("perfect");
                     gameManager.UIComboAnim.SetInteger("State", 1);
                 }
                 else if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.45)
                 {
-                    GameManager.GoodNoteAction(gameManager.UIComboAnim);
+                    GameManager.GoodNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
                     Debug.Log("good");
                     gameManager.UIComboAnim.SetInteger("State", 1);
                 }
-                else if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.6)
+                else // if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.45)
                 {
-                    GameManager.BadNoteAction(gameManager.UIComboAnim);
+                    GameManager.BadNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
                     Debug.Log("bad");
                 }
                 Destroy(gameObject);
             }
         }
         
-        if (deathTimer < 0)
+        if (deathTimer < 0 && !gameManager.isGameOver)
         {
-            GameManager.MissedNoteAction(gameManager.UIComboAnim);
+            GameManager.MissedNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
             Destroy(gameObject);
             Debug.Log("miss");
         }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameWinUI;
     public bool isGameOver;
     public bool isWin;
+    public Animator performanceTextUI;
 
 
     // Animator anim;
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
         //ps.Play();
         isGameOver = false;
         gameOverUI.SetActive(false);
-        beatCounter.SetBPM(120);
+        beatCounter.SetBPM(110);
         combo = 0;
         maxHealth = 200;
         health = maxHealth;
@@ -88,25 +89,33 @@ public class GameManager : MonoBehaviour
         if (value > maxCombo) maxCombo = value;
     }
 
-    static public void PerfectNoteAction(Animator UIComboAnim)
+    static public void PerfectNoteAction(Animator UIComboAnim, Animator UIPerformanceTextAnim)
     {
-        
+        UIPerformanceTextAnim.GetComponent<Text>().text = "PERFECT";
+        UIPerformanceTextAnim.GetComponent<Outline>().effectColor = new Color(0.5415737f, 0.004716992f, 1f, 0.5019608f);
+        UIPerformanceTextAnim.SetBool("isVisible", true);
         combo++;
         UIComboAnim.SetInteger("State", 2);
         score += 500;
         //LateAction(UIComboAnim);
     }
 
-    static public void GoodNoteAction(Animator UIComboAnim)
+    static public void GoodNoteAction(Animator UIComboAnim, Animator UIPerformanceTextAnim)
     {
+        UIPerformanceTextAnim.GetComponent<Text>().text = "GOOD";
+        UIPerformanceTextAnim.GetComponent<Outline>().effectColor = new Color(0.5431281f, 1f, 0.003921568f, 0.5019608f);
+        UIPerformanceTextAnim.SetBool("isVisible", true);
         combo++;
         UIComboAnim.SetInteger("State", 2);
         score += 300;
         //LateAction(UIComboAnim);
     }
 
-    static public void BadNoteAction(Animator UIComboAnim)
+    static public void BadNoteAction(Animator UIComboAnim, Animator UIPerformanceTextAnim)
     {
+        UIPerformanceTextAnim.GetComponent<Text>().text = "BAD";
+        UIPerformanceTextAnim.GetComponent<Outline>().effectColor = new Color(0.9884853f, 1f, 0.003921568f, 0.5019608f);
+        UIPerformanceTextAnim.SetBool("isVisible", true);
         SetMaxCombo(combo);
         UIComboAnim.SetInteger("State", 0);
         combo = 0;
@@ -114,19 +123,22 @@ public class GameManager : MonoBehaviour
         score += 50;
     }
 
-    static public void MissedNoteAction(Animator UIComboAnim)
+    static public void MissedNoteAction(Animator UIComboAnim, Animator UIPerformanceTextAnim)
     {
+        UIPerformanceTextAnim.GetComponent<Text>().text = "MISS";
+        UIPerformanceTextAnim.GetComponent<Outline>().effectColor = new Color(1f, 0.003921568f, 0.04241006f, 0.5019608f);
+        UIPerformanceTextAnim.SetBool("isVisible", true);
         SetMaxCombo(combo);
         UIComboAnim.SetInteger("State", 0);
         combo = 0;
         health -= 10;
     }
 
-    static public void LateAction(Animator UIComboAnim)
-    {
-        UIComboAnim.SetInteger("State", 0);
+    //static public void LateAction(Animator UIComboAnim)
+    //{
+    //    UIComboAnim.SetInteger("State", 0);
 
-    }
+    //}
 
     public void gameOver()
     {
@@ -137,17 +149,20 @@ public class GameManager : MonoBehaviour
 
         gameOverUI.SetActive(true);
         isGameOver = true;
+        scroller.scrollSpeed = 0;
         
     }
 
     public void restart()
     {
+        score = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
 
     public void openMenu()
     {
+        score = 0;
         theMusic.Stop();
         SceneManager.LoadScene("MainMenu");
     }
@@ -160,6 +175,10 @@ public class GameManager : MonoBehaviour
 
     public void win()
     {
+        if (combo > maxCombo)
+        {
+            maxCombo = combo;
+        }
         isWin = true;
         gameWinUI.SetActive(true);
     }

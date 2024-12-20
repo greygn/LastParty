@@ -13,7 +13,7 @@ public class BeatScroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scrollSpeed = bpm / 60f;
+        scrollSpeed = -5;
         bpm = manager.bpm;
     }
 
@@ -23,7 +23,7 @@ public class BeatScroller : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform childTransform = transform.GetChild(i);
-            childTransform.Translate(0, -3 * Time.deltaTime, 0);
+            childTransform.Translate(0, scrollSpeed * Time.deltaTime, 0);
             childTransform.GetComponent<NoteObject>().DeathTimerTick();
 
         }
