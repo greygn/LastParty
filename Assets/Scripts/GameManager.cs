@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public static int combo;
     public static int maxHealth;
     [SerializeField] public static int health;
-    [SerializeField] public int copyHealth;
+    //[SerializeField] public int copyHealth;
     public static int score;
     [SerializeField] public Animator UIComboAnim;
     public GameObject gameOverUI;
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(false);
         beatCounter.SetBPM(110);
         combo = 0;
+        maxCombo = 0;
+        combo = 0;
         maxHealth = 200;
         health = maxHealth;
         theMusic.Play();
@@ -55,16 +57,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        copyHealth = health;
+        //copyHealth = health;
         //anim.SetInteger("State", 1);
-        if (!isStarted)
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                isStarted = true;
+        //if (!isStarted)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Return))
+        //    {
+        //        isStarted = true;
 
-            }
-        }
+        //    }
+        //}
 
         if (health <= 0 && !isGameOver)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArrowControl : MonoBehaviour
 {
@@ -18,9 +19,10 @@ public class ArrowControl : MonoBehaviour
     private int currentNote = 0;
     double elapsedTime;
     private ArrowRecord[] arrows;
+    public TextAsset text;
 
     public float timer;
-    bool readyToSpawn = true;
+    //bool readyToSpawn = true;
     void Start()
     {
         OpenFile();
@@ -52,6 +54,7 @@ public class ArrowControl : MonoBehaviour
         if (arrow.GetTicksFromLast() <= beatCounter.GetCurrentTick() && !manager.isGameOver)
             
         {
+    
             switch (arrow.GetDirection())
             {
                 case 'A':
@@ -95,10 +98,10 @@ public class ArrowControl : MonoBehaviour
     {
         try
         {
-            reader = null;
-            string filePath = "Assets/Prefs/NotesPlacement1.txt";
-            reader = new StreamReader(filePath);
-            rawText = reader.ReadLine();
+            //reader = null;
+            //string filePath = "NotesPlacement1.txt";
+            //reader = new StreamReader(filePath);
+            rawText = text.text;
         }
         catch (Exception ex)
         {
@@ -112,7 +115,6 @@ public class ArrowControl : MonoBehaviour
         notesCount = rawText.Length / recordLength;
         //int CurrentCount = 0;
         ArrowRecord[] res = new ArrowRecord[notesCount];
-
         for (int i = 0; i < notesCount; i++)
         {
             Char tempType;

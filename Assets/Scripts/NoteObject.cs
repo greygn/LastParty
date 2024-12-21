@@ -34,21 +34,18 @@ public class NoteObject : MonoBehaviour
                 if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.15)
                 {
                     GameManager.PerfectNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
-                    Debug.Log("perfect");
                     gameManager.UIComboAnim.SetInteger("State", 1);
                 }
                 else if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.45)
                 {
                     GameManager.GoodNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
-                    Debug.Log("good");
                     gameManager.UIComboAnim.SetInteger("State", 1);
                 }
                 else // if (Mathf.Abs(parentCoord.y - transform.position.y) < 0.45)
                 {
                     GameManager.BadNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
-                    Debug.Log("bad");
                 }
-                Destroy(gameObject);
+                Destroy(gameObject); 
             }
         }
         
@@ -56,7 +53,6 @@ public class NoteObject : MonoBehaviour
         {
             GameManager.MissedNoteAction(gameManager.UIComboAnim, gameManager.performanceTextUI);
             Destroy(gameObject);
-            Debug.Log("miss");
         }
 
     }
